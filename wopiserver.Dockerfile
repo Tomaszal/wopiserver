@@ -14,8 +14,11 @@ LABEL maintainer="cernbox-admins@cern.ch" \
 # prerequisites: we explicitly install g++ as it is required by grpcio but missing from its dependencies
 WORKDIR /app
 COPY requirements.txt .
-RUN ! [[ -x "$(command -v apt)" ]] && apt -y install g++
-RUN ! [[ -x "$(command -v apk)" ]] && apk add g+
+RUN if command -v apt &> /dev/null; then \
+      apt -y install g++
+    elif command -v apk &> /dev/null; then \
+      apk add g+
+    fi
 RUN pip3 install --upgrade pip setuptools && \
     pip3 install --no-cache-dir --upgrade -r requirements.txt
 
