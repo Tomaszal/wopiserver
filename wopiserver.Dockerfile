@@ -15,9 +15,9 @@ LABEL maintainer="cernbox-admins@cern.ch" \
 WORKDIR /app
 COPY requirements.txt .
 RUN if command -v apt &> /dev/null; then \
-      apt -y install g++ \
+      apt -y install g++; \
     elif command -v apk &> /dev/null; then \
-      apk add g++ \
+      apk add g++; \
     fi
 RUN pip3 install --upgrade pip setuptools && \
     pip3 install --no-cache-dir --upgrade -r requirements.txt
