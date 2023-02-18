@@ -14,13 +14,8 @@ LABEL maintainer="cernbox-admins@cern.ch" \
 # prerequisites: we explicitly install g++ as it is required by grpcio but missing from its dependencies
 WORKDIR /app
 COPY requirements.txt .
-ENV BASEIMAGE=${BASEIMAGE}
-RUN echo "${BASEIMAGE}"
-RUN if [ "$BASEIMAGE" = 'python:3.10-slim-buster' ]; then \
-      apt -y install g++; \
-    else \
-      apk add g++; \
-    fi
+RUN ! [[ -x "$(command -v apt)" ]] && apt -y install g++
+RUN ! [[ -x "$(command -v apk)" ]] && apk add g+
 RUN pip3 install --upgrade pip setuptools && \
     pip3 install --no-cache-dir --upgrade -r requirements.txt
 
