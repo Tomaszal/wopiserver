@@ -14,7 +14,7 @@ LABEL maintainer="cernbox-admins@cern.ch" \
 # prerequisites: we explicitly install g++ as it is required by grpcio but missing from its dependencies
 WORKDIR /app
 COPY requirements.txt .
-RUN if [ "$BASEIMAGE" = 'python:3.10-slim-buster' ]; then \
+RUN if [ '${BASEIMAGE}' = 'python:3.10-slim-buster' ]; then \
       apt -y install g++; \
     else \
       apk add g++; \
