@@ -47,10 +47,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        #- file: wopiserver.Dockerfile
+        - file: wopiserver.Dockerfile
         #  tags: ${{ vars.DOCKERHUB_ORGANIZATION }}/wopiserver:${{ github.ref_name }},${{ vars.DOCKERHUB_ORGANIZATION }}/wopiserver:latest
-        #  platform: linux/amd64
-        #  image: python:3.11-alpine
+          platform: linux/amd64
+          image: python:3.11-alpine
+          push: false
         #  push: ${{ github.event_name != 'workflow_dispatch' }}
         - file: wopiserver.Dockerfile
           #tags: ${{ vars.DOCKERHUB_ORGANIZATION }}/wopiserver:${{ github.ref_name }},${{ vars.DOCKERHUB_ORGANIZATION }}/wopiserver:latest
@@ -58,7 +59,8 @@ jobs:
           image: python:3.10-slim-buster
           push: false
         #  push: ${{ github.event_name != 'workflow_dispatch' }}
-        #- file: wopiserver-xrootd.Dockerfile
+        - file: wopiserver-xrootd.Dockerfile
         #  tags: ${{ vars.DOCKERHUB_ORGANIZATION }}/wopiserver:${{ github.ref_name }}-xrootd
-        #  platform: linux/amd64
+          platform: linux/amd64
+          push: false
         #  push: ${{ github.event_name != 'workflow_dispatch' }}
